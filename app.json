@@ -1,0 +1,19 @@
+{
+  "name": "Consulta Perú",
+  "description": "API para consultar el DNI o RUC - Perú.",
+  "keywords": [
+    "php",
+    "peru"
+  ],
+  "website": "https://github.com/surenperu/searchpe",
+  "repository": "https://github.com/surenperu/searchpe",
+  "success_url": "/",
+  "scripts": {
+    "test": "vendor/bin/phpunit --configuration phpunit.xml"
+  },
+  "env": {
+    "APP_LOG": "php://stderr",
+    "API_TOKEN": "wolsnut4"
+  },
+  "image": "heroku/php"
+}
