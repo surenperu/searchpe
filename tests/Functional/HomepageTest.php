@@ -12,7 +12,7 @@ class HomepageTest extends BaseTestCase
         $response = $this->runApp('GET', '/');
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('API Consult', (string)$response->getBody());
+        $this->assertContains('Searchpe', (string)$response->getBody());
     }
 
     /**
