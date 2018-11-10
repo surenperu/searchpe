@@ -46,7 +46,7 @@ class ConsultApiTest extends BaseTestCase
             return;
         }
         $this->assertEquals('ROBERTO CARLOS', $person->nombres);
-        $this->assertEquals('4', $person->codVerifica);
+//        $this->assertEquals('4', $person->codVerifica);
     }
 
     public function testConsultGraph()
