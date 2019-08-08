@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Peru\Api\Repository;
 
 use GraphQL\Type\Definition\ObjectType;

@@ -2,9 +2,13 @@
 
 // DIC configuration
 
+use GraphQL\Type\Schema;
+use Peru\Api\Controller\GraphController;
 use Peru\Api\Repository\CompanyType;
 use Peru\Api\Repository\PersonType;
 use Peru\Api\Repository\RootType;
+use Peru\Api\Resolver\DniResolver;
+use Peru\Api\Resolver\RucResolver;
 use Peru\Api\Service\ArrayConverter;
 use Peru\Api\Service\DniMultiple;
 use Peru\Api\Service\GraphRunner;
@@ -66,6 +70,14 @@ $container[ArrayConverter::class] = function () {
     return new ArrayConverter();
 };
 
+$container[DniResolver::class] = function ($c) {
+    return new DniResolver($c->get(Dni::class), $c->get('logger'));
+};
+
+$container[RucResolver::class] = function ($c) {
+    return new RucResolver($c->get(Ruc::class), $c->get('logger'));
+};
+
 $container[PersonType::class] = function () {
     return new PersonType();
 };
@@ -78,6 +90,25 @@ $container[RootType::class] = function ($c) {
     return new RootType($c);
 };
 
+$container[Schema::class] = function ($c) {
+    return new Schema([
+        'query' => $c->get(RootType::class),
+    ]);
+};
+
 $container[GraphRunner::class] = function ($c) {
-    return new GraphRunner($c->get(RootType::class));
+    return new GraphRunner($c->get(Schema::class), $c->get('logger'));
+};
+
+$container[GraphController::class] = function ($c) {
+    return new GraphController($c->get(GraphRunner::class));
+};
+
+$container['errorHandler'] = function ($container) {
+    $showErrors = $container->get('settings')['displayErrorDetails'];
+    if ($showErrors) {
+        return new Slim\Handlers\Error(true);
+    }
+
+    return new \Peru\Api\Handler\CustomError();
 };

@@ -1,0 +1,236 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "Consulta de DNI y RUC",
+      "version": "4.0",
+      "title": "SEARCHPE",
+      "contact": {
+        "email": "lx7pary@gmail.com"
+      }
+    },
+    "tags": [
+      {
+        "name": "RENIEC",
+        "description": "Registro Nacional de Identificación y Estado Civil."
+      },
+      {
+        "name": "SUNAT",
+        "description": "Superintendencia Nacional de Aduanas y de Administración Tributaria."
+      }
+    ],
+    "paths": {
+      "/ruc/{ruc}": {
+        "get": {
+          "tags": [
+            "SUNAT"
+          ],
+          "summary": "Retorna datos de la empresa",
+          "description": "Retorna información segun el ruc",
+          "operationId": "getByRuc",
+          "parameters": [
+            {
+              "name": "ruc",
+              "in": "path",
+              "description": "Ruc de la empresa",
+              "required": true,
+              "example": "20100070970",
+              "schema": {
+                "type": "string",
+                "minLength": 11,
+                "maxLength": 11
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Operacion exitosa",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RucResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Ruc invalido o no encontrado"
+            }
+          }
+        }
+      },     
+      "/dni/{dni}": {
+        "get": {
+          "tags": [
+            "RENIEC"
+          ],
+          "summary": "Retorna datos de la persona",
+          "description": "Retorna informacion segun el dni",
+          "operationId": "getByDni",
+          "parameters": [
+            {
+              "name": "dni",
+              "in": "path",
+              "description": "Dni de la persona",
+              "required": true,
+              "example": "46658592",
+              "schema": {
+                "type": "string",
+                "minLength": 8,
+                "maxLength": 8
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Operacion exitosa",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DniResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Dni invalido o no encontrado"
+            }
+          }
+        }
+      }    
+    },
+    "security": [
+      {
+        "ApiToken": []
+      }
+    ],
+    "servers": [
+      {
+        "url": "http://searchpe.heroku/api/v1",
+        "description": "PRODUCTION"
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "ApiToken": {
+          "name": "token",
+          "type": "apiKey",
+          "in": "query",
+          "description": "Token de acceso"
+        }
+      },
+      "schemas": {
+        "RucResponse": {
+          "type": "object",
+          "properties": {
+            "ruc": {
+              "type": "string"
+            },
+            "razonSocial": {
+              "type": "string"
+            },
+            "nombreComercial": {
+              "type": "string"
+            },
+            "telefonos": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tipo": {
+              "type": "string"
+            },
+            "estado": {
+              "type": "string"
+            },
+            "condicion": {
+              "type": "string"
+            },
+            "direccion": {
+              "type": "string"
+            },
+            "departamento": {
+              "type": "string"
+            },
+            "provincia": {
+              "type": "string"
+            },
+            "distrito": {
+              "type": "string"
+            },
+            "fechaInscripcion": {
+              "type": "string",
+              "format": "date"
+            },
+            "sistEmsion": {
+              "type": "string"
+            },
+            "sistContabilidad": {
+              "type": "string"
+            },
+            "actExterior": {
+              "type": "string"
+            },
+            "actEconomicas": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "cpPago": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sistElectronica": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fechaEmisorFe": {
+              "type": "string",
+              "format": "date"
+            },
+            "cpeElectronico": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fechaPle": {
+              "type": "string",
+              "format": "date"
+            },
+            "padrones": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "DniResponse": {
+          "type": "object",
+          "properties": {
+            "dni": {
+              "type": "string"
+            },
+            "nombres": {
+              "type": "string"
+            },
+            "apellidoPaterno": {
+              "type": "string"
+            },
+            "apellidoMaterno": {
+              "type": "string"
+            },
+            "codVerifica": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }

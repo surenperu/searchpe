@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Peru\Api\Service;
 
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
-use Peru\Api\Repository\RootType;
 use GraphQL\Error\FormattedError;
+use Psr\Log\LoggerInterface;
 
 class GraphRunner
 {
@@ -13,16 +15,20 @@ class GraphRunner
      * @var Schema
      */
     private $schema;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * GraphRunner constructor.
-     * @param RootType $queryType
+     * @param Schema $schema
+     * @param LoggerInterface $logger
      */
-    public function __construct(RootType $queryType)
+    public function __construct(Schema $schema, LoggerInterface $logger)
     {
-        $this->schema = new Schema([
-            'query' => $queryType,
-        ]);
+        $this->schema = $schema;
+        $this->logger = $logger;
     }
 
     /**
@@ -39,6 +45,8 @@ class GraphRunner
             $result = GraphQL::executeQuery($this->schema, $query, null, null, $variables);
             $output = $result->toArray();
         } catch (\Exception $e) {
+            var_dump($e);
+            $this->logger->error($e->getMessage());
             $output = [
                 'errors' => [FormattedError::createFromException($e)],
             ];

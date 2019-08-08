@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Peru\Api\Repository;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Peru\Reniec\Dni;
-use Peru\Sunat\Ruc;
+use Peru\Api\Resolver\DniResolver;
+use Peru\Api\Resolver\RucResolver;
 use Psr\Container\ContainerInterface;
 
 class RootType extends ObjectType
@@ -30,15 +32,7 @@ class RootType extends ObjectType
                     'args' => [
                         'dni' => Type::nonNull(Type::string()),
                     ],
-                    'resolve' => function ($root, $args) use ($container) {
-                        $service = $container->get(Dni::class);
-                        $person = $service->get($args['dni']);
-                        if ($person === false) {
-                            $container->get('logger')->error($service->getError());
-                            return null;
-                        }
-                        return $person;
-                    },
+                    'resolve' => $container->get(DniResolver::class),
                 ],
                 'company' => [
                     'type' => $container->get(CompanyType::class),
@@ -46,17 +40,7 @@ class RootType extends ObjectType
                     'args' => [
                         'ruc' => Type::nonNull(Type::string()),
                     ],
-                    'resolve' => function ($root, $args) use ($container) {
-                        $service = $container->get(Ruc::class);
-                        $company = $service->get($args['ruc']);
-                        if ($company === false) {
-                            $container->get('logger')->error($service->getError());
-
-                            return null;
-                        }
-
-                        return $company;
-                    },
+                    'resolve' => $container->get(RucResolver::class),
                 ],
             ],
         ];

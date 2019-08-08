@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrador
- * Date: 30/12/2017
- * Time: 09:57 AM.
- */
+
+declare(strict_types=1);
 
 namespace Peru\Api\Repository;
 

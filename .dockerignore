@@ -8,8 +8,7 @@ vendor
 .gitignore
 .php_cs.dist
 app.json
-box.bat
 box.json
 /*.md
 Procfile
-phpunit.xml
+phpunit.xml.dist
