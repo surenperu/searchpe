@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Giansalex
+ * Date: 28/12/2017
+ * Time: 20:53.
+ */
 
 declare(strict_types=1);
 
@@ -78,7 +84,7 @@ class HomeController
         $url .= $uri->getBasePath();
 
         $jsonContent = file_get_contents($filename);
-        $response->getBody()->write(str_replace('searchpe.api', $url, $jsonContent));
+        $response->getBody()->write(str_replace('consult.api', $url, $jsonContent));
 
         return $response->withHeader('Content-Type', 'application/json; charset=utf8');
     }

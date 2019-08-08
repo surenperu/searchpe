@@ -1,12 +1,12 @@
 {
     "name": "searchpe",
-    "description": "Consulta RUC, DNI - Peru",
-    "keywords": ["peru", "rest"],
+    "description": "Consulta RUC, DNI - Perú",
+    "keywords": ["peru", "rest", "ruc", "dni", "graphql"],
     "homepage": "https://github.com/surenperu/searchpe",
     "license": "MIT",
     "authors": [
         {
-            "name": "Alex Pariona",
+            "name": "alex Pariona",
             "email": "lx7pary@gmail.com"
         }
     ],

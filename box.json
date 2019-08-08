@@ -18,6 +18,6 @@
     "output": "consult.phar",
     "stub": true,
     "web": false,
-    "banner": "searchpe",
+    "banner": "Peru Consult API",
     "shebang": false
 }
