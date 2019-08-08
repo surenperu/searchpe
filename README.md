@@ -1,29 +1,44 @@
-# API search-pe
- 
-API para consultar el DNI y RUC - Perú, empleando [peru-consult](https://github.com/surenperu/searchpe) package.
+# API Consulta Ruc y Dni - Perú
+
+[![Travis-CI](https://img.shields.io/travis/giansalex/peru-consult-api.svg?label=build&branch=master&style=flat-square)](https://travis-ci.org/giansalex/peru-consult-api)
+[![Docker Build Status](https://img.shields.io/docker/build/giansalex/peru-consult-api.svg?style=flat-square)](https://hub.docker.com/r/giansalex/peru-consult-api/builds/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/giansalex/peru-consult-api.svg?style=flat-square)](https://hub.docker.com/r/giansalex/peru-consult-api)
+[![GitHub issues](https://img.shields.io/github/issues/giansalex/peru-consult-api.svg?style=flat-square)](https://github.com/giansalex/peru-consult-api/issues)  
+API para consultar el DNI y RUC - Perú, empleando [peru-consult](https://github.com/giansalex/peru-consult) package.
+
+
+## Requerimientos
+
+- PHP 7.1 o superior.
+- dom extension activada
 
 ## Instalar
 
-### Desde el código fuente
+### Docker
+
+Usar la imagen desde [Docker Hub](https://hub.docker.com/r/giansalex/peru-consult-api/)
+```bash
+docker pull giansalex/peru-consult-api
+```
+
+### Clonar Repositorio
 
 ```
-git clone https://github.com/surenperu/searchpe.git
-cd searchpe
+git clone https://github.com/giansalex/peru-consult-api.git
+cd peru-consult-api
 composer install
-composer start
+php -S 127.0.0.1:8090 -t public
 ```
-
-**Requerimientos**
-- dom extension para Ruc class.
-- dom extension para UserSol class.
-- gd extension para Dni class.
 
 ### Desplegar en Heroku
-Token por defecto: `wolsnut4`
+Token por defecto: `abcxyz`
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ## Ejemplos
+
+### KataCoda Interactive Tutorial
+https://www.katacoda.com/giansalex/scenarios/peru-consult-api
 
 ### GraphQL
 Implementando soporte para [graphql](http://graphql.org/) utilizar el endpoint `/api/graph`   
@@ -59,7 +74,7 @@ Respuesta:
 ### DNI
 Ejecutar usando Curl.
 ```bash
-curl -H "Accept: application/json" http://localhost:8090/api/dni/48004836?token=wolsnut4
+curl -H "Accept: application/json" http://localhost:8090/api/v1/dni/48004836?token=abcxyz
 ```
 
 Respuesta:
@@ -77,7 +92,7 @@ Respuesta:
 ### RUC
 Ejecutar usando Curl.
 ```bash
-curl -H "Accept: application/json" http://localhost:8090/api/ruc/20131312955?token=wolsnut4
+curl -H "Accept: application/json" http://localhost:8090/api/v1/ruc/20131312955?token=abcxyz
 ```
 
 Respuesta:
@@ -134,7 +149,7 @@ Respuesta:
 ### Consulta Validez Usuario SOL
 Ejecutar usando Curl.
 ```bash
-curl http://localhost:8090/api/user-sol/20000000001/GMABCI?token=wolsnut4
+curl http://localhost:8090/api/v1/user-sol/20000000001/GMABCI?token=abcxyz
 ```
 
 Respuesta:
@@ -142,3 +157,9 @@ Respuesta:
 ```text
 true
 ```
+
+
+### GraphiQL Tool
+Para mejorar aún más nuestra experiencia en pruebas, sugerimos comenzar a utilizar el cliente GraphiQL.
+Es un Explorador de esquema GraphQL que puede descargar desde Chrome Store. Utilizar el endpoint `/api/v1/graph`, el editor tiene una función de autocompletar y contiene toda la información sobre el esquema actual en el lado derecho en la barra lateral de Documentos:
+![GraphiQL Interface](https://raw.githubusercontent.com/giansalex/peru-consult-api/master/docs/screenshot-graph.png)

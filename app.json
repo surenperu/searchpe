@@ -13,7 +13,7 @@
   },
   "env": {
     "APP_LOG": "php://stderr",
-    "API_TOKEN": "wolsnut4"
+    "API_TOKEN": "abcxyz"
   },
   "image": "heroku/php"
 }

@@ -3,9 +3,10 @@
   "info": {
     "description": "Consultas de DNI y RUC - **Perú**\n\n## GraphQL\nEndpoint `api/graphql`\n",
     "version": "4.0",
-    "title": "SEARCHPE",
+    "title": "PERU CONSULTAS",
     "contact": {
-      "email": "lx7pary@gmail.com"
+      "name": "Giancarlos Salas",
+      "email": "giansalex@gmail.com"
     }
   },
   "tags": [
@@ -230,6 +231,12 @@
   "security": [
     {
       "ApiToken": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://consult.api/api/v1",
+      "description": "PRODUCTION"
     }
   ],
   "components": {

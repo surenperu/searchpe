@@ -1,5 +1,5 @@
 <?php
 
-putenv('API_TOKEN=wolsnut4');
+putenv('API_TOKEN=abcxyz');
 
 require 'consult.phar';
