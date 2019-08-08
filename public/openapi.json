@@ -3,10 +3,10 @@
   "info": {
     "description": "Consultas de DNI y RUC - **Perú**\n\n## GraphQL\nEndpoint `api/graphql`\n",
     "version": "4.0",
-    "title": "PERU CONSULTAS",
+    "title": "SEACRHPE",
     "contact": {
-      "name": "Giancarlos Salas",
-      "email": "giansalex@gmail.com"
+      "name": "Alex Pariona",
+      "email": "lx7pary@gmail.com"
     }
   },
   "tags": [
@@ -235,7 +235,7 @@
   ],
   "servers": [
     {
-      "url": "http://consult.api/api/v1",
+      "url": "http://consult.api/api",
       "description": "PRODUCTION"
     }
   ],

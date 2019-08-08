@@ -5,15 +5,13 @@
     "php",
     "peru"
   ],
-  "website": "https://github.com/giansalex/peru-consult-api",
-  "repository": "https://github.com/giansalex/peru-consult-api",
   "success_url": "/",
   "scripts": {
     "test": "vendor/bin/phpunit"
   },
   "env": {
     "APP_LOG": "php://stderr",
-    "API_TOKEN": "abcxyz"
+    "API_TOKEN": "wolsnut4"
   },
   "image": "heroku/php"
 }

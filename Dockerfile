@@ -1,7 +1,7 @@
 FROM php:7.3-alpine AS build-env
 
-LABEL owner="Giancarlos Salas"
-LABEL maintainer="giansalex@gmail.com"
+LABEL owner="Alex Pariona"
+LABEL maintainer="lx7pary@gmail.com"
 
 WORKDIR /app
 
@@ -23,7 +23,7 @@ RUN composer install --no-interaction --no-dev --optimize-autoloader --ignore-pl
 
 FROM php:7.3-apache
 
-ENV API_TOKEN abcxyz
+ENV API_TOKEN wolsnut4
 
 RUN apt-get update && \
     docker-php-ext-configure opcache --enable-opcache && \

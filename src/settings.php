@@ -11,7 +11,7 @@ return [
         ],
 
         'auth' => [
-            'token' => 'abcxyz'
+            'token' => 'wolsnut4'
         ],
 
         'swagger_path' => __DIR__.'/../public/openapi.json',

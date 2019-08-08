@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Giansalex
- * Date: 28/12/2017
- * Time: 21:25.
- */
+
 
 declare(strict_types=1);
 
