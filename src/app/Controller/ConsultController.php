@@ -1,17 +1,22 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: 
+ * Date: 28/12/2017
+ * Time: 20:53.
+ */
 declare(strict_types=1);
 
 namespace Peru\Api\Controller;
 
-use Peru\Api\Service\ArrayConverter;
-use Peru\Jne\Dni;
-use Peru\Sunat\Ruc;
+use Peru\Api\Http\AppResponse;
+use Peru\Jne\Async\Dni;
+use Peru\Reniec\Person;
+use Peru\Sunat\Async\Ruc;
+use Peru\Sunat\Company;
 use Peru\Sunat\UserValidator;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Slim\Http\{Request, Response};
 
 class ConsultController
 {
@@ -44,15 +49,16 @@ class ConsultController
     {
         $ruc = $args['ruc'];
         $service = $this->container->get(Ruc::class);
-        $company = $service->get($ruc);
-        if ($company === false) {
-            $this->getLogger()->error($service->getError());
-            $response->getBody()->write($service->getError());
+        $promise = $service->get($ruc)
+            ->then(function (?Company $company) use ($response) {
+                if (!$company) {
+                    return $response->withStatus(400);
+                }
 
-            return $response->withStatus(400);
-        }
+                return $response->withJson($company);
+            });
 
-        return $response->withJson($this->container->get(ArrayConverter::class)->convert($company));
+        return (new AppResponse())->withPromise($promise);
     }
 
     /**
@@ -90,25 +96,15 @@ class ConsultController
     {
         $dni = $args['dni'];
         $service = $this->container->get(Dni::class);
-        $person = $service->get($dni);
-        if ($person === false) {
-            $this->getLogger()->error($service->getError());
-            $response->getBody()->write($service->getError());
+        $promise = $service->get($dni)
+            ->then(function (?Person $person) use ($response) {
+                if (!$person) {
+                    return $response->withStatus(400);
+                }
 
-            return $response->withStatus(400);
-        }
+                return $response->withJson($person);
+            });
 
-        return $response->withJson($this->container->get(ArrayConverter::class)->convert($person));
-    }
-
-    /**
-     * @return LoggerInterface
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     */
-    private function getLogger()
-    {
-        return $this->container->get('logger');
+        return (new AppResponse())->withPromise($promise);
     }
 }

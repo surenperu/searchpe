@@ -4,7 +4,7 @@
   "keywords": [
     "php",
     "peru"
-  ],
+  ],  
   "success_url": "/",
   "scripts": {
     "test": "vendor/bin/phpunit"

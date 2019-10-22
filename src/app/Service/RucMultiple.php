@@ -1,11 +1,18 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: 
+ * Date: 28/12/2017
+ * Time: 21:17.
+ */
 
 declare(strict_types=1);
 
 namespace Peru\Api\Service;
 
-use Peru\Sunat\Ruc;
+use Peru\Sunat\Async\Ruc;
+use function React\Promise\all;
+use React\Promise\PromiseInterface;
 
 class RucMultiple
 {
@@ -27,20 +34,17 @@ class RucMultiple
     /**
      * @param array $rucs
      *
-     * @return array
+     * @return PromiseInterface
      */
-    public function get(array $rucs)
+    public function get(array $rucs): PromiseInterface
     {
         $all = [];
         foreach ($rucs as $ruc) {
-            $company = $this->service->get($ruc);
-            if ($company === false) {
-                continue;
-            }
+            $promise = $this->service->get($ruc);
 
-            $all[] = $company;
+            $all[] = $promise;
         }
 
-        return $all;
+        return all($all);
     }
 }

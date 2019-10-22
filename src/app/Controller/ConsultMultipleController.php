@@ -1,16 +1,19 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: 
+ * Date: 28/12/2017
+ * Time: 21:17.
+ */
 
 declare(strict_types=1);
 
 namespace Peru\Api\Controller;
 
-use Peru\Api\Service\ArrayConverter;
-use Peru\Api\Service\DniMultiple;
-use Peru\Api\Service\RucMultiple;
+use Peru\Api\Http\AppResponse;
+use Peru\Api\Service\{DniMultiple, RucMultiple};
 use Psr\Container\ContainerInterface;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Slim\Http\{Request, Response};
 
 class ConsultMultipleController
 {
@@ -45,11 +48,14 @@ class ConsultMultipleController
         if (!is_array($rucs)) {
             return $response->withStatus(400);
         }
-        /** @var $service RucMultiple */
-        $service = $this->container->get(RucMultiple::class);
-        $companies = $service->get($rucs);
 
-        return $response->withJson($this->container->get(ArrayConverter::class)->convert($companies));
+        $service = $this->container->get(RucMultiple::class);
+        $promise = $service->get($rucs)
+            ->then(function ($companies) use ($response) {
+                return $response->withJson($companies);
+            });
+
+        return (new AppResponse())->withPromise($promise);
     }
 
     /**
@@ -68,10 +74,13 @@ class ConsultMultipleController
         if (!is_array($dnis)) {
             return $response->withStatus(400);
         }
-        /** @var $service DniMultiple */
-        $service = $this->container->get(DniMultiple::class);
-        $persons = $service->get($dnis);
 
-        return $response->withJson($this->container->get(ArrayConverter::class)->convert($persons));
+        $service = $this->container->get(DniMultiple::class);
+        $promise = $service->get($dnis)
+            ->then(function ($persons) use ($response) {
+                return $response->withJson($persons);
+            });
+
+        return (new AppResponse())->withPromise($promise);
     }
 }

@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: 
+ * Date: 28/12/2017
+ * Time: 21:34
+ */
 
 namespace Tests\Functional;
 
@@ -11,22 +16,22 @@ class ConsultMultipleApiTest extends BaseTestCase
 {
     public function testConsultRucNotAllowed()
     {
-        $response = $this->runApp('GET', '/api/ruc');
+        $response = $this->runApp('GET', '/api/v1/ruc');
 
         $this->assertEquals(405, $response->getStatusCode());
     }
 
     public function testConsultRucInvalid()
     {
-        $response = $this->runApp('POST', '/api/ruc');
+        $response = $this->runApp('POST', '/api/v1/ruc');
 
         $this->assertEquals(400, $response->getStatusCode());
     }
 
     public function testConsultRuc()
     {
-        $arr = ['20101266819', '20508316985', '20537979381'];
-        $response = $this->runApp('POST', '/api/ruc', $arr);
+        $arr = ['20440374248', '20550263948', '20493919271'];
+        $response = $this->runApp('POST', '/api/v1/ruc', $arr);
 
         $this->assertEquals(200, $response->getStatusCode());
 
@@ -43,27 +48,24 @@ class ConsultMultipleApiTest extends BaseTestCase
 
     public function testConsultDniNotAllowed()
     {
-        $response = $this->runApp('GET', '/api/dni');
+        $response = $this->runApp('GET', '/api/v1/dni');
         $this->assertEquals(405, $response->getStatusCode());
     }
 
     public function testConsultDniNotValid()
     {
-        $response = $this->runApp('POST', '/api/dni');
+        $response = $this->runApp('POST', '/api/v1/dni');
         $this->assertEquals(400, $response->getStatusCode());
     }
 
     public function testConsultDni()
     {
         $arr = ['00000012', '00000005', '46658592'];
-        $response = $this->runApp('POST', '/api/dni', $arr);
+        $response = $this->runApp('POST', '/api/v1/dni', $arr);
 
         $this->assertEquals(200, $response->getStatusCode());
         /**@var $persons Person[] */
         $persons = json_decode((string)$response->getBody());
-        if (!empty(getenv('CI'))) {
-            return;
-        }
         $this->assertEquals(3, count($persons));
         foreach ($persons as $person) {
             $this->assertTrue(in_array($person->dni, $arr));

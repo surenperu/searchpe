@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "Consultas de DNI y RUC - **Perú**\n\n## GraphQL\nEndpoint `api/graphql`\n",
-    "version": "4.0",
+    "version": "4.1",
     "title": "SEACRHPE",
     "contact": {
       "name": "Alex Pariona",
@@ -48,7 +48,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RucResponse"
+                  "$ref": "#/components/schemas/Company"
                 }
               }
             }
@@ -90,7 +90,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/RucResponse"
+                    "$ref": "#/components/schemas/Company"
                   }
                 }
               }
@@ -130,7 +130,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DniResponse"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -171,7 +171,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DniResponse"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -235,7 +235,7 @@
   ],
   "servers": [
     {
-      "url": "http://consult.api/api",
+      "url": "http://consult.api/api/v1",
       "description": "PRODUCTION"
     }
   ],
@@ -249,7 +249,7 @@
       }
     },
     "schemas": {
-      "RucResponse": {
+      "Company": {
         "type": "object",
         "properties": {
           "ruc": {
@@ -339,10 +339,16 @@
             "items": {
               "type": "string"
             }
+          },
+          "fechaBaja": {
+            "type": "string"
+          },
+          "profesion": {
+            "type": "string"
           }
         }
       },
-      "DniResponse": {
+      "Person": {
         "type": "object",
         "properties": {
           "dni": {

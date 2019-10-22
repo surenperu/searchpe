@@ -1,10 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: 
+ * Date: 28/12/2017
+ * Time: 21:17.
+ */
 
 declare(strict_types=1);
 
 namespace Peru\Api\Service;
 
-use Peru\Jne\Dni;
+use Peru\Jne\Async\Dni;
+use function React\Promise\all;
+use React\Promise\PromiseInterface;
 
 class DniMultiple
 {
@@ -26,20 +34,17 @@ class DniMultiple
     /**
      * @param array $dnis
      *
-     * @return array
+     * @return PromiseInterface
      */
-    public function get(array $dnis)
+    public function get(array $dnis): PromiseInterface
     {
         $all = [];
         foreach ($dnis as $dni) {
-            $person = $this->service->get($dni);
-            if ($person === false) {
-                continue;
-            }
+            $promise = $this->service->get($dni);
 
-            $all[] = $person;
+            $all[] = $promise;
         }
 
-        return $all;
+        return all($all);
     }
 }

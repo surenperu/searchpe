@@ -3,6 +3,12 @@
     "description": "Consulta RUC, DNI - Perú",
     "keywords": ["peru", "rest", "ruc", "dni", "graphql"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Pariona",
+            "email": "lx7pary@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.1",
         "slim/slim": "^3.1",
